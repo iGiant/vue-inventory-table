@@ -15,7 +15,9 @@
                 <tr>
                     <th scope="col" class="text-center align-middle">№</th>
                     <th v-for="header, index in headers" scope="col" class="text-center align-middle">
-                        <input v-if="filtersEnable[index]" class="form-control" v-model="filtersInput[index]" @keyup.esc="filterOff(index)" @keyup="filtered(index)" :ref="'header_'+index" :placeholder="header" type="text">
+                        <input v-if="filtersEnable[index]" class="form-control" v-model="filtersInput[index]" 
+                            @keyup.esc="filterOff(index)" @keyup="filtered(index)" @blur="filterOff(index)"
+                            :ref="'header_'+index" :placeholder="header" type="text">
                         <span v-else @click="filterOn(index)" >{{header}}</span>
                     </th>
                 </tr>

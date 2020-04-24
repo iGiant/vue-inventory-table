@@ -18,7 +18,7 @@ new Vue({
     for (let i=0;i<this.headers.length;i++) {
       this.filtersEnable.push(false)
     }
-    axios.get('http://inventory/api/all')
+    axios.get('http://inventory:9000/api/all')
     .then((response) => {
       this.itemsAll = this.unique(response.data.filter((item) => {
         return item.computer.chassis
@@ -44,17 +44,13 @@ new Vue({
       item.computer.os.name + ' [' + item.computer.os.version + ']',
       item.computer.os.architecture,
       item.computer.inventory_number,
-      item.profile,
+      item.profile.slice(19),
       ]
       return result;
     },
     filterOn(index) {
       for (let i=0;i<this.filtersEnable.length;i++) {
-        if (i===index) {
-          Vue.set(this.filtersEnable, i, true);
-        } else {
-          Vue.set(this.filtersEnable, i, false);
-        }
+        Vue.set(this.filtersEnable, i, i===index)
       }
       this.$nextTick(() => {
           this.$refs['header_'+index][0].focus();
